@@ -152,6 +152,39 @@ limitation]:
 upgrades for major versions. Either keep both installations or uninstall
 the older one.
 
+== Optional provisioning preview (personal fork)
+
+The MSI instructions above remain the standard installation path; choose
+the Temurin version and installer features that your project requires.
+For review only, a separate
+https://github.com/crutkas/WindowsDeveloperConfig-oem/pull/2[personal-fork draft]
+offers an optional Windows provisioning preview. It is not an Eclipse
+Adoptium recommendation or a Microsoft-signed release.
+
+Review the
+https://github.com/crutkas/WindowsDeveloperConfig-oem/blob/crutkas-devconfig-fork-only-workloads/src/docs/windows-onboarding-preview.md[source-preview guide],
+scripts, configuration and package terms before running anything. From
+the reviewed fork checkout, the local-source entry point is:
+
+[source,powershell]
+----
+.\src\Workloads\install-source.ps1 -Workload temurin
+----
+
+This preview installs Temurin JDK 25 via WinGet package
+`EclipseAdoptium.Temurin.25.JDK` on Windows x64 only, not ARM64.
+It preserves existing JDKs and sets `JAVA_HOME` for the current PowerShell
+session only; it does not promise a persistent `JAVA_HOME`.
+The separate `java` workload installs Microsoft OpenJDK, not Temurin.
+
+Use a disposable development VM with the prerequisites listed in the
+guide. This is real provisioning, not a dry run: execution accepts package
+agreements, requests elevation and can change MSI PATH/JAR integration.
+The helper can also enable WinGet Configuration and install its VC runtime
+dependency. Use only approved development execution policies and native
+elevation prompts. There is no published short-link entry point for this
+preview; do not substitute a signed upstream bootstrap for the reviewed source.
+
 == Reference reading
 
 * https://www.advancedinstaller.com/user-guide/msiexec.html[Msiexec.exe
